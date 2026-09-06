@@ -1,0 +1,76 @@
+-- SCRIPT DE BASE DE DATOS --
+CREATE DATABASE sistema_calificacion;
+
+USE sistema_calificacion;
+
+-- -----------------------------------------------------
+-- Tabla: usuario
+-- --------------------------
+CREATE TABLE usuario (
+    carne BIGINT NOT NULL PRIMARY KEY,
+    nombres VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- -----------------------------------------------------
+-- Tabla: curso
+-- --------------------
+CREATE TABLE curso (
+    codigo_curso VARCHAR(20) NOT NULL UNIQUE, -- Código único del curso
+    nombre VARCHAR(100) NOT NULL,
+    creditos DECIMAL(4, 1) NOT NULL COMMENT 'Ej: 3.0 para 3 créditos',
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- -----------------------------------------------------
+-- Tabla: catedratico
+-- -------------------
+CREATE TABLE catedratico (
+    codigo_catedratico VARCHAR(50) NOT NULL UNIQUE, -- Código único del catedrático
+    nombres VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL
+);
+
+-- -----------------------------------------------------
+-- Tabla: cursos_aprobados
+-- --------------------
+CREATE TABLE cursos_aprobados (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    carne BIGINT NOT NULL,
+    codigo_curso VARCHAR(20) NOT NULL,
+    nota DECIMAL(3, 2) NOT NULL COMMENT 'La nota obtenida',
+    fecha_aprobacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (carne) REFERENCES usuario(carne) ON DELETE CASCADE,
+    FOREIGN KEY (codigo_curso) REFERENCES curso(codigo_curso) ON DELETE CASCADE
+);
+
+-- -----------------------------------------------------
+-- Tabla: publicacion
+-- ----------------------
+CREATE TABLE publicacion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_publicacion VARCHAR(100) NOT NULL UNIQUE, -- Código único de la publicación
+    carne BIGINT NOT NULL,
+    codigo_curso VARCHAR(20) NOT NULL,
+    codigo_catedratico VARCHAR(50) NOT NULL,
+    contenido TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (carne) REFERENCES usuario(carne) ON DELETE CASCADE,
+    FOREIGN KEY (codigo_curso) REFERENCES curso(codigo_curso) ON DELETE CASCADE,
+    FOREIGN KEY (codigo_catedratico) REFERENCES catedratico(codigo_catedratico) ON DELETE  CASCADE
+);
+
+-- -----------------------------------------------------
+-- Tabla: comentarios
+-- ---------------------
+CREATE TABLE comentarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    carne BIGINT NOT NULL,
+    codigo_publicacion VARCHAR(100) NOT NULL,
+    contenido TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (carne) REFERENCES usuario(carne) ON DELETE CASCADE,
+    FOREIGN KEY (codigo_publicacion) REFERENCES publicacion(codigo_publicacion) ON DELETE CASCADE
+);
