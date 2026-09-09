@@ -9,6 +9,7 @@ import SearchProfile from '../pages/SearchProfile';
 import Profile from '../pages/Profile';
 import About from '../pages/About';
 import Sidebar from './components/Sidebar';
+import ManageCatalogs from "../pages/ManageCatalogs";
 
 function Layout({ children }) {
   return (
@@ -31,9 +32,10 @@ export default function App() {
         <Route path="/create-post" element={<Layout><CreatePost /></Layout>} />
         <Route path="/search-profile" element={<Layout><SearchProfile /></Layout>} />
         <Route path="/profile/:carne" element={<Layout><Profile /></Layout>} />
+        <Route path="/catalogs" element={<Layout><ManageCatalogs /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />
         
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />        
       </Routes>
     </BrowserRouter>
   );

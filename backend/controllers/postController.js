@@ -3,34 +3,59 @@ const { v4: uuidv4 } = require('uuid');
 
 exports.getPosts = async (req, res) => {
   const { curso, catedratico } = req.query;
+
   try {
     let query = `
-      SELECT p.codigo_publicacion, p.contenido, p.fecha, u.nombres, u.apellidos, c.nombre AS curso, cat.nombres AS catedratico_nombre, cat.apellidos AS catedratico_apellido
+      SELECT 
+        p.id,
+        p.codigo_publicacion,
+        p.carne,
+        p.contenido,
+        p.fecha,
+        u.nombres,
+        u.apellidos,
+        c.nombre AS curso,
+        cat.nombres AS catedratico_nombre,
+        cat.apellidos AS catedratico_apellido
       FROM publicacion p
       JOIN usuario u ON p.carne = u.carne
       JOIN curso c ON p.codigo_curso = c.codigo_curso
       JOIN catedratico cat ON p.codigo_catedratico = cat.codigo_catedratico
+      WHERE 1=1
     `;
+
     const params = [];
-    const conditions = [];
 
     if (curso) {
-      conditions.push('c.nombre LIKE ?');
+      query += ` AND c.nombre LIKE ?`;
       params.push(`%${curso}%`);
     }
+
     if (catedratico) {
-      conditions.push('(cat.nombres LIKE ? OR cat.apellidos LIKE ?)');
+      query += ` AND (cat.nombres LIKE ? OR cat.apellidos LIKE ?)`;
       params.push(`%${catedratico}%`, `%${catedratico}%`);
     }
 
-    if (conditions.length > 0) {
-      query += ' WHERE ' + conditions.join(' AND ');
-    }
-    query += ' ORDER BY p.fecha DESC';
+    query += ` ORDER BY p.fecha DESC`;
 
     const [posts] = await db.query(query, params);
+
+    // Obtener los comentarios correspondientes a cada publicación
+    for (let post of posts) {
+      const [comments] = await db.query(
+        `SELECT com.id, com.contenido, com.fecha, u.nombres, u.apellidos
+         FROM comentarios com
+         JOIN usuario u ON com.carne = u.carne
+         WHERE com.codigo_publicacion = ?
+         ORDER BY com.fecha ASC`,
+        [post.codigo_publicacion]
+      );
+      post.comentarios = comments;
+    }
+
     res.json(posts);
   } catch (error) {
+    console.error('Error al obtener publicaciones:', error);
     res.status(500).json({ error: error.message });
   }
 };

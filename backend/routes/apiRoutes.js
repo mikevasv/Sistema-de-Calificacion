@@ -16,9 +16,11 @@ router.get('/posts', postController.getPosts);
 router.post('/posts', postController.createPost);
 router.post('/posts/comments', postController.addComment);
 
-// Rutas de Catálogos (Cursos y Catedráticos)
+// Rutas de Catálogos
 router.get('/courses', catalogController.getCourses);
+router.post('/courses', catalogController.createCourse);
 router.get('/professors', catalogController.getProfessors);
+router.post('/professors', catalogController.createProfessor);
 
 // Rutas de Perfil y Cursos Aprobados
 router.get('/users/:carne', profileController.getProfile);

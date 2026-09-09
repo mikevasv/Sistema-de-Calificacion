@@ -49,14 +49,32 @@ exports.updateProfile = async (req, res) => {
 exports.addApprovedCourse = async (req, res) => {
   const { carne } = req.params;
   const { codigo_curso, nota } = req.body;
+
+  if (!codigo_curso || nota === undefined) {
+    return res.status(400).json({ error: 'El código del curso y la nota son obligatorios.' });
+  }
+
   try {
+    // Validar si el curso existe en el catálogo antes de insertar
+    const [courseExists] = await db.query(
+      'SELECT codigo_curso FROM curso WHERE codigo_curso = ?',
+      [codigo_curso]
+    );
+
+    if (courseExists.length === 0) {
+      return res.status(404).json({ error: `El curso con código '${codigo_curso}' no existe en el catálogo.` });
+    }
+
+    // Insertar curso aprobado
     await db.query(
       'INSERT INTO cursos_aprobados (carne, codigo_curso, nota) VALUES (?, ?, ?)',
-      [carne, codigo_curso, nota]
+      [carne, codigo_curso, parseFloat(nota)]
     );
-    res.status(201).json({ message: 'Curso agregado al expediente' });
+
+    return res.status(201).json({ message: 'Curso aprobado agregado correctamente.' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error al agregar curso aprobado:', error);
+    return res.status(500).json({ error: error.message });
   }
 };
 

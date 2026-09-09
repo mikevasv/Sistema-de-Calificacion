@@ -34,7 +34,9 @@ export default function Sidebar() {
           <Link to={`/profile/${user.carne}`} className="block px-3 py-2 rounded-lg hover:bg-slate-700 transition">
             Gestión Cursos Aprobados
           </Link>
-
+          <Link to="/catalogs" className="hover:text-indigo-400 block py-2">
+            Gestionar Catálogos
+          </Link>
           <div className="text-xs font-semibold text-slate-500 uppercase px-2 mt-6 mb-1">Información</div>
           <Link to="/about" className="block px-3 py-2 rounded-lg hover:bg-slate-700 transition">
             Acerca de
