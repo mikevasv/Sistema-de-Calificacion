@@ -14,7 +14,7 @@ export default function Sidebar() {
     <aside className="w-64 bg-slate-800 border-r border-slate-700 min-h-screen p-4 flex flex-col justify-between text-slate-200">
       <div>
         <div className="mb-8 px-2">
-          <h2 className="text-xl font-bold text-indigo-400">Plataforma Auxiliares</h2>
+          <h2 className="text-xl font-bold text-indigo-400">Plataforma de Calificación</h2>
           <p className="text-xs text-slate-400 mt-1">Carné: {user.carne || 'Invitado'}</p>
         </div>
 

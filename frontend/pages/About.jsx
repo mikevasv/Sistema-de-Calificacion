@@ -9,8 +9,15 @@ export default function About() {
           Esta aplicación permite a los estudiantes publicar, evaluar y brindar opiniones constructivas sobre los cursos y catedráticos de la institución educativa.
         </p>
         <p className="text-slate-300 leading-relaxed">
-          Creado por: José Miguel Vásquez Velasquez
+          Creado Por:  
+        </p>
+        <p className="text-slate-300 leading-relaxed">
+          José Miguel Vásquez Velasquez
           Carne: 2002-13161
+        </p>
+        <p className="text-slate-300 leading-relaxed">
+          Juan Pablo Tepeu Pacay	
+          Carne: 2023-08216
         </p>
         <div className="pt-4 border-t border-slate-700 text-xs text-slate-400 space-y-1">
           <p>Desarrollado con React 18, Node.js 20, Express y MySQL 8.</p>
