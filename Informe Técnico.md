@@ -1,6 +1,6 @@
  <center> 
 
-![Logo](Imagenes/logo-usac.png){width=300}  
+![Logo](Imagenes/logo-usac.png)  
 
 
 # Informe Técnico Sistema de Calificación
@@ -42,7 +42,7 @@ El proyecto se estructura bajo una arquitectura de tres capas (3-Tier Architectu
 
 <center>  
 
-![Logo](Imagenes/Arquitectura.png){width=400}  
+![Logo](Imagenes/Arquitectura.png) 
 </center> 
 
 </div>
@@ -101,7 +101,7 @@ El intercambio de información sigue una arquitectura orientada a servicios REST
 #### Modelo de Datos y Esquema de Base de Datos
 El diseño de la base de datos sistema_calificacion está normalizado hasta la Tercera Forma Normal (3FN).
 
-![Logo](Imagenes/Flujo_de_Comunicación.png){width=400}  
+![Logo](Imagenes/ER_SistemaCalificación.png) 
 </center> 
 </div>
 
