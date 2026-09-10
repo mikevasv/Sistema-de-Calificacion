@@ -26,7 +26,11 @@ El presente Informe Técnico detalla el diseño, la codificación e implementaci
 
 - ### Objetivos
 <div style="text-align: justify;">
---- objetivo acá
+--- 
+Vincular al estudiante con la arquitectura de desarrollo web basada en Frameworks modernos, control de versiones y gestión de datos.
+Implementar el uso de repositorios distribuidos para la administración del código fuente y el trabajo colaborativo.
+Diseñar y administrar una base de datos relacional para la persistencia de información del sistema.
+Desarrollar una arquitectura Cliente-Servidor integrada mediante un servicioWeb REST API.
 </div>
 
 
@@ -238,7 +242,8 @@ networks:
 
 ### Conclusión
 <div style="text-align: justify;">
--- Conclusión acá
+Realizar este proyecto ayudó a entender en la práctica cómo se conecta verdaderamente el frontend con el backend y la base de datos.
+Logramos cumplir con todos los requisitos del enunciado creando una plataforma que sería bastante útil para los estudiantes.
 </div>
 
 
